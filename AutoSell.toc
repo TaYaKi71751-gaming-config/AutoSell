@@ -1,0 +1,8 @@
+## Interface: 100007
+## Title: AutoSell
+## Author: YourName
+## Version: 1.0
+## Notes: Automatically sells gray items when visiting a merchant.
+
+AutoSell.lua
+
