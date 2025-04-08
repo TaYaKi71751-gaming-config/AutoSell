@@ -42,7 +42,6 @@ local function AutoSell()
 																								local bagItemEquipLoc = GetItemEquipLoc(bagItemLink)
 																								local bagItemSellPrice = GetItemSellPrice(bagItemLink)
 																								if bagItemSellPrice ~= 0 and bagItemEquipLoc == "INVTYPE_NON_EQUIP_IGNORE" then
-																								    C_Container.UseContainerItem(bag, slotInBag)
 																								end
                         -- If the bag item has a higher item level, equip it
                         if bagItemSellPrice ~= 0 and bagItemLevel and bagItemEquipLoc and currentItemEquipLoc == bagItemEquipLoc and bagItemLevel <= currentItemLevel then
