@@ -1,5 +1,5 @@
 ## Interface: 100007
-## Title: AutoSell
+## Title: AutoSellEquip
 ## Author: YourName
 ## Version: 1.0
 ## Notes: Automatically sells gray items when visiting a merchant.
