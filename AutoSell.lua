@@ -20,6 +20,12 @@ local function GetItemSellPrice(itemLink)
 								return itemSellPrice
 				end
 end
+local function GetItemRarity(itemLink)
+    if itemLink then
+				    local _,_,itemRarity = GetItemInfo(itemLink)
+								return itemRarity
+				end
+end
 
 local function AutoSell()
     local delay = 0
@@ -41,13 +47,20 @@ local function AutoSell()
                         local bagItemLevel = GetItemLevel(bagItemLink)
 																								local bagItemEquipLoc = GetItemEquipLoc(bagItemLink)
 																								local bagItemSellPrice = GetItemSellPrice(bagItemLink)
+																								local bagItemRarity = GetItemRarity(bagItemLink)
 																								if bagItemSellPrice ~= 0 and bagItemEquipLoc == "INVTYPE_NON_EQUIP_IGNORE" then
+																								end
+                        if bagItemSellPrice ~= 0 and bagItemLevel and bagItemEquipLoc and bagItemEquipLoc ~= "INVTYPE_NON_EQUIP_IGNORE" and bagItemRarity < 2 then
+																								    delay = delay + 0.5
+																									   C_Timer.After(delay, function()
+																													C_Container.UseContainerItem(bag, slotInBag)  -- Sell item
+																												end)
 																								end
                         -- If the bag item has a higher item level, equip it
                         if bagItemSellPrice ~= 0 and bagItemLevel and bagItemEquipLoc and bagItemEquipLoc ~= "INVTYPE_NON_EQUIP_IGNORE" and bagItemLevel <= currentItemLevel then
 																								    delay = delay + 0.5
 																									   C_Timer.After(delay, function()
-																													C_Container.UseContainerItem(bag, slotInBag)  -- Equip the better item from the bag
+																													C_Container.UseContainerItem(bag, slotInBag)  -- Sell item
 																												end)
                         end
                     end
