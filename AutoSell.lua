@@ -22,10 +22,10 @@ local function GetItemSellPrice(itemLink)
 end
 
 local function AutoSell()
+    local delay = 0
     for _, slotName in ipairs(slots) do
         local slotID = GetInventorySlotInfo(slotName.."Slot") -- Get the ID for the specific equipment slot
         local itemLink = GetInventoryItemLink("player", slotID) -- Get the item link for the equipped item in that slot
-
         -- If the slot has an item equipped
         if itemLink then
             local currentItemLevel = GetItemLevel(itemLink)
@@ -44,8 +44,11 @@ local function AutoSell()
 																								if bagItemSellPrice ~= 0 and bagItemEquipLoc == "INVTYPE_NON_EQUIP_IGNORE" then
 																								end
                         -- If the bag item has a higher item level, equip it
-                        if bagItemSellPrice ~= 0 and bagItemLevel and bagItemEquipLoc and currentItemEquipLoc == bagItemEquipLoc and bagItemLevel <= currentItemLevel then
-                            C_Container.UseContainerItem(bag, slotInBag)  -- Equip the better item from the bag
+                        if bagItemSellPrice ~= 0 and bagItemLevel and bagItemEquipLoc and bagItemEquipLoc ~= "INVTYPE_NON_EQUIP_IGNORE" and bagItemLevel <= currentItemLevel then
+																								    delay = delay + 0.5
+																									   C_Timer.After(delay, function()
+																													C_Container.UseContainerItem(bag, slotInBag)  -- Equip the better item from the bag
+																												end)
                         end
                     end
                 end
